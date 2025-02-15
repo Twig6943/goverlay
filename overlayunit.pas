@@ -724,13 +724,26 @@ begin
   vkbasaltsel := false;
   vkbasaltPanel.Visible:=false;
 
-  // Start vkcube (vulkan demo)
+#CustomStuff
+var
+  Process: TProcess;
+  SessionType: string;
+begin
+  SessionType := GetEnvironmentVariable('XDG_SESSION_TYPE');
+
   Process := TProcess.Create(nil);
   Process.Executable := 'sh';
   Process.Parameters.Add('-c');
-  Process.Parameters.Add('mangohud vkcube');
+
+  if SessionType = 'wayland' then
+    Process.Parameters.Add('mangohud vkcube_wayland')
+  else
+    Process.Parameters.Add('mangohud vkcube');
+
   Process.Options := [poUsePipes];
   Process.Execute;
+end;
+
 
   // Define important file paths
   GOVERLAYFOLDER:= '$HOME/.config/goverlay/' ;
