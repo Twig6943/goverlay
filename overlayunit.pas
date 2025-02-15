@@ -724,7 +724,7 @@ begin
   vkbasaltsel := false;
   vkbasaltPanel.Visible:=false;
 
-#CustomStuff
+//CustomStuff
 var
   Process: TProcess;
   SessionType: string;
@@ -736,7 +736,7 @@ begin
   Process.Parameters.Add('-c');
 
   if SessionType = 'wayland' then
-    Process.Parameters.Add('mangohud vkcube_wayland')
+    Process.Parameters.Add('mangohud vkcube-wayland')
   else
     Process.Parameters.Add('mangohud vkcube');
 
