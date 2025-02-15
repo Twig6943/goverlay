@@ -732,17 +732,22 @@ begin
   SessionType := GetEnvironmentVariable('XDG_SESSION_TYPE');
 
   Process := TProcess.Create(nil);
-  Process.Executable := 'sh';
-  Process.Parameters.Add('-c');
+  try
+    Process.Executable := 'sh';
+    Process.Parameters.Add('-c');
 
-  if SessionType = 'wayland' then
-    Process.Parameters.Add('mangohud vkcube-wayland')
-  else
-    Process.Parameters.Add('mangohud vkcube');
+    if SessionType = 'wayland' then
+      Process.Parameters.Add('mangohud vkcube-wayland')
+    else
+      Process.Parameters.Add('mangohud vkcube');
 
-  Process.Options := [poUsePipes];
-  Process.Execute;
+    Process.Options := [poUsePipes];
+    Process.Execute;
+  finally
+    Process.Free;
+  end;
 end;
+
 
 
   // Define important file paths
